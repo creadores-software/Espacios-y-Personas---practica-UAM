@@ -39,9 +39,6 @@
             <li class="nav-item">
               <a class="nav-link" v-on:click="goTo('Seeker')"  href="#">Buscador</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" v-on:click="goTo('Controller')"  href="#">Prueba CRUD</a>
-            </li>
           </ul>
           <form class="d-flex" role="search">
             <input

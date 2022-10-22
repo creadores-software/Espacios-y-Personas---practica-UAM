@@ -60,10 +60,16 @@ class CategoryPersonFieldController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_user)
     {
-        //
+        session()->regenerate();
+        $name = $request["name"];
+        $category = CategoryPersonField::where("name",$name)->where("owner",$id_user)->firstOrFail();
+        //$data = $request->validated();
+        $category->update($request->toArray());
+        return response()->json($category);
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -75,4 +81,20 @@ class CategoryPersonFieldController extends Controller
     {
         //
     }
+
+    public function eliminarCategoriasPersonal(Request $request, $id_user){
+        
+        try {
+            $categories = CategoryPersonField::where("owner",$id_user)->where("category_person_id",1)->get();
+            return response()->json($categories->delete());
+        } catch (\Throwable $th) {
+            return response()->json($th);
+        }
+         
+           
+    }
+
+    public function eliminarCategoriasLaboral(Request $request, $id_user){
+        return response()->json(CategoryPersonField::where("owner",$id_user)->where("category_person_id",2)->delete());      
+     }
 }

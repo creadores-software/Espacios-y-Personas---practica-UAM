@@ -14,13 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+    Route::get('/', function () {
+        return view('welcome');
+    });
+    
+    Route::get('/vue/{n1?}/{n2?}/{n3?}/{n4?}/{n5?}/{n6?}', function () {
+        return view('welcome-vue');
+    })->name('welcome-vue');
+    Auth::routes();
+    
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    
 
-Route::get('/vue/{n1?}/{n2?}/{n3?}/{n4?}/{n5?}', function () {
-    return view('welcome-vue');
-})->name('welcome-vue');
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

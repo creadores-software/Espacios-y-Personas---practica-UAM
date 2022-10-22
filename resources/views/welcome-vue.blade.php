@@ -3,9 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
+    {{-- <meta name="csrf-token" content="{{ csrf_token() }}" /> --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Espacios + Personas</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,10 +19,9 @@
 </head>
 
 <body>
+  {{session()->get("token")}}
     <script>
-     
-      {{session()->get('token')}}
-      {{Auth::user()}}
+      
     </script>
     @vite('resources/js/vue/main.js')
     <div id="app"></div>

@@ -10,18 +10,23 @@ import Presentation from '../components/landing-page/landing-components/Presenta
 //ADMIN
 import PersonList from '../components/admin/people-admin/PersonList.vue'
 import Save from '../components/admin/people-admin/Save.vue'
+import SaveSpace from '../components/admin/space-admin/SaveSpace.vue'
 
 //People
 import People from '../components/people/People.vue';
 
+import EditImagePerson from '../components/admin/people-admin/EditImage.vue'
+
 import PersonProfile from '../components/people/PersonProfile.vue';
+
+import EditCategoryPerson from '../components/admin/people-admin/EditCategoryPerson.vue'
 
 //Spaces
 import Spaces from '../components/spaces/Spaces.vue';
 
 import SpaceProfile from '../components/spaces/SpaceProfile.vue';
 
-import SpaceList from '../components/spaces/space-admin/SpaceList.vue'
+import SpaceList from '../components/admin/space-admin/SpaceList.vue'
 
 //Events
 import Events from '../components/events/Events.vue';
@@ -110,6 +115,21 @@ const routes = [
         name: 'Controller',
         path: '/vue/controllerTest',
         component: Controller,
+    },
+    {
+        name: 'SaveSpace',
+        path: '/vue/admin/space/save/:slug?',
+        component : SaveSpace,
+    },
+    {
+        name: 'EditImagePerson',
+        path: '/vue/admin/person/editImage/:slug?',
+        component: EditImagePerson,
+    },
+    {
+        name: 'EditCategoryPerson',
+        path: '/vue/admin/person/editCategory/:slug?',
+        component: EditCategoryPerson,
     }
 ]
 

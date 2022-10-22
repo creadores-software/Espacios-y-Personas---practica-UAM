@@ -33,19 +33,47 @@
         <o-table-column field="birthday" label="Fecha nacimiento" v-slot="p">
           {{ p.row.birthday }}
         </o-table-column>
-        <o-table-column field="slug" label="Acciones" v-slot="p">
-          <o-button variant="info"
+        <o-table-column class="row" field="slug" label="Acciones" v-slot="p">
+          <div class="col"><o-button variant="primary"><router-link
+              class="pe-2"
+              :to="{ name: 'EditCategoryPerson', params: { slug: p.row.slug } }"
+              >Editar categorías</router-link
+            ></o-button></div>
+          <div class="col"><o-button variant="primary"
+            ><router-link
+              class="pe-2"
+              :to="{ name: 'EditImagePerson', params: { slug: p.row.slug } }"
+              >Editar imagen</router-link
+            ></o-button
+          ></div>
+          <div class="col">
+            <o-button variant="info"
             ><router-link
               class="pe-2"
               :to="{ name: 'Save', params: { slug: p.row.slug } }"
               >Editar</router-link
             ></o-button
           >
-          <o-button variant="danger" @click="eliminar(p.row.slug, p)"
+          </div>
+          <div class="col">
+            <o-button variant="danger" @click="eliminar(p.row.slug, p)"
             >Eliminar</o-button
           >
+          </div>
+          
+          
         </o-table-column>
       </o-table>
+      <div class="row">
+        <div class="col-4 pt-3 m-0 p-0">
+          <o-button variant="info"
+            ><router-link class="m-0 p-0" :to="{ name: 'Save' }"
+              ><p>Crear una nueva persona</p></router-link
+            ></o-button
+          >
+        </div>
+        <div class="col"></div>
+      </div>
       <o-pagination
         @change="updatePage"
         v-if="people.current_page && people.data.length > 0"
@@ -66,9 +94,6 @@
         aria-current-label="Página actual"
       >
       </o-pagination>
-      <router-link :to="{ name: 'Save' }"
-        ><p class="fw-bold">Crear persona</p></router-link
-      >
     </div>
   </div>
 </template>

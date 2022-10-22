@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Person\PutRequest;
 use App\Http\Requests\Person\StoreRequest;
 use App\Models\Person;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Spatie\Searchable\Search;
 
@@ -17,8 +19,11 @@ class PersonController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+    
     {
-        return response()->json(Person::paginate(6));
+        if(Session::has('token')){
+            return response()->json(Person::paginate(6));
+        }
     }
 
     public function slug($slug){
@@ -56,9 +61,20 @@ class PersonController extends Controller
         return response()->json($person);
     }
 
-    public function update(PutRequest $request, Person $person)
+    public function update(PutRequest $request, $slug)
     {
+        $person = Person::where("slug",$slug)->firstOrFail();
         $data = $request->validated();
+        $person->update($data);
+        return response()->json($person);
+    }
+
+    public function upload(Request $request, $slug)
+    {   
+        $person = Person::where("slug",$slug)->firstOrFail();
+        $data["image"] = $filename = time() . "." . $request["image"]->extension();
+        $request->image->move(public_path("image/people"), $filename);
+
         $person->update($data);
         return response()->json($person);
     }

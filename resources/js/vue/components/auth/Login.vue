@@ -61,10 +61,10 @@ export default {
         oruga.notification.open('Login Success')
         console.log(res);
       }).catch((error)=>{
-        if(error.response.data){
-          this.errors.login = error.response.data.errors.email;
-          this.errors.password = error.response.data.errors.password;
-        }
+        // if(error.response.data){
+        //   this.errors.login = error.response.data.errors.email;
+        //   this.errors.password = error.response.data.errors.password;
+        // }
       });
     },
   },

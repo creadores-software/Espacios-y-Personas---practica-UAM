@@ -4,7 +4,7 @@
     <div class="col" style="text-align: center">
       <div class="card text-dark bg-light mb-5">
         <div class="card-body">
-          <h4 class="fw-bold pb-2">Crea una nueva persona</h4>
+          <h4 class="fw-bold pb-2">{{ titleForm }}</h4>
           <form @submit.prevent="submit">
             <o-field
               label="Primer Nombre"
@@ -13,7 +13,6 @@
             >
               <o-input v-model="form.firstname" value=""> </o-input>
             </o-field>
-
             <o-field
               label="Segundo Nombre"
               :variant="errors.secondname ? 'danger' : 'primary'"
@@ -35,7 +34,6 @@
             >
               <o-input v-model="form.secondLastname" value=""> </o-input>
             </o-field>
-
             <o-field
               label="Cumpleaños"
               :variant="errors.birthday ? 'danger' : 'primary'"
@@ -44,132 +42,19 @@
               <o-input v-model="form.birthday" value=""> </o-input>
             </o-field>
             <o-field
+              type="email"
               label="Email público"
               :variant="errors.public_email ? 'danger' : 'primary'"
               :message="errors.public_email"
             >
               <o-input v-model="form.public_email" value=""> </o-input>
             </o-field>
-
-            <o-field>
-              <o-switch
-                v-model="c_personal"
-                variant="info"
-                @click="cleanCategoryPersonForm"
-              >
-                Categoría personal
-              </o-switch>
-            </o-field>
-            <div v-if="c_personal">
-              <div class="ml-5 mr-5">
-                <o-field
-                  label="rh"
-                  :variant="
-                    categoryPersonFieldsErrors.rh ? 'danger' : 'primary'
-                  "
-                  :message="categoryPersonFieldsErrors.rh"
-                >
-                  <o-select
-                    placeholder="Selecciona el tipo de sangre"
-                    v-model="form_category_person.rh"
-                  >
-                    <option value="A-">
-                      {{ this.person_categories_options.rh[0] }}
-                    </option>
-                    <option value="A">
-                      {{ this.person_categories_options.rh[1] }}
-                    </option>
-                    <option value="B">
-                      {{ this.person_categories_options.rh[2] }}
-                    </option>
-                    <option value="B-">
-                      {{ this.person_categories_options.rh[3] }}
-                    </option>
-                    <option value="O">
-                      {{ this.person_categories_options.rh[4] }}
-                    </option>
-                    <option value="O-">
-                      {{ this.person_categories_options.rh[5] }}
-                    </option>
-                    <option value="AB">
-                      {{ this.person_categories_options.rh[6] }}
-                    </option>
-                  </o-select>
-                </o-field>
-                <o-field
-                  label="Telefono"
-                  :variant="
-                    categoryPersonFieldsErrors.telefono ? 'danger' : 'primary'
-                  "
-                  :message="categoryPersonFieldsErrors.telefono"
-                >
-                  <o-input v-model="form_category_person.telefono" value="">
-                  </o-input>
-                </o-field>
-                <o-field
-                  label="Cedula"
-                  :variant="
-                    categoryPersonFieldsErrors.cedula ? 'danger' : 'primary'
-                  "
-                  :message="categoryPersonFieldsErrors.cedula"
-                >
-                  <o-input v-model="form_category_person.cedula" value="">
-                  </o-input>
-                </o-field>
-                <o-field
-                  label="Ciudad de nacimiento"
-                  :variant="
-                    categoryPersonFieldsErrors.ciudad_natal
-                      ? 'danger'
-                      : 'primary'
-                  "
-                  :message="categoryPersonFieldsErrors.ciudad_natal"
-                >
-                  <o-input v-model="form_category_person.ciudad_natal" value="">
-                  </o-input>
-                </o-field>
-              </div>
-            </div>
-
-            <o-field>
-              <o-switch
-                v-model="c_laboral"
-                variant="info"
-                @click="cleanCategoryWorkForm"
-              >
-                Categoría laboral
-              </o-switch>
-            </o-field>
-
-            <div v-if="c_laboral">
-              <div class="ml-5 mr-5">
-                <o-field
-                  label="Empresa"
-                  :variant="
-                    categoryWorkFieldsErrors.empresa ? 'danger' : 'primary'
-                  "
-                  :message="categoryWorkFieldsErrors.empresa"
-                >
-                  <o-select
-                    placeholder="Selecciona la empresa"
-                    v-model="form_category_work.empresa"
-                  >
-                    <option value="UAM">
-                      {{ this.work_categories_options.Empresa[0] }}
-                    </option>
-                  </o-select>
-                </o-field>
-              </div>
-            </div>
-
             <o-button class="mt-2" variant="primary" native-type="submit">{{
               labelSubmit
             }}</o-button>
             <br />
             <small style="color: red">{{ this.generalError }}</small>
             <small style="color: green">{{ this.generalInfo }}</small>
-            <small style="color: black">{{ this.selected }}</small>
-            <small>{{this.form.slug}}</small>
           </form>
         </div>
       </div>
@@ -179,11 +64,12 @@
 </template>
 
 <script>
+import { useProgrammatic } from "@oruga-ui/oruga-next";
+const { oruga } = useProgrammatic();
 export default {
   data() {
     return {
-      category_error: false,
-      categories: [],
+      titleForm: "Crea una nueva persona",
       form: {
         firstname: "Julian",
         secondname: "David",
@@ -193,17 +79,6 @@ export default {
         birthday: "04/12/1999",
         slug: "",
       },
-      form_category_person: {
-        rh: "",
-        cedula: "",
-        telefono: "",
-        ciudad_natal: "",
-      },
-      form_category_work: {
-        empresa: "",
-        latitud: "",
-        longitud: "",
-      },
       errors: {
         firstname: "",
         secondname: "",
@@ -212,36 +87,7 @@ export default {
         public_email: "",
         birthday: "",
       },
-      categoryPersonFieldsErrors: {
-        rh: "",
-        telefono: "",
-        cedula: "",
-        ciudad_natal: "",
-      },
-      categoryWorkFieldsErrors: {
-        empresa: "",
-      },
-      c_personal: false,
-      c_laboral: false,
       person: "",
-      existPerson: "",
-      new_slug: "",
-      person_categories: "",
-      person_categories_options: "",
-      work_categories: "",
-      work_categories_options: "",
-      label_telefono: "",
-      label_cedula: "",
-      label_ciudad: "",
-      personWithPersonCategories: "",
-      field_to_post: {
-        owner: "",
-        category_person_id: "",
-        name: "",
-        value: "",
-      },
-      workCategoriesFields: "",
-      personCategoriesFields: "",
       labelSubmit: "Guardar",
       generalError: "",
       full_name: "",
@@ -249,31 +95,17 @@ export default {
       hasErrors: false,
       generalInfo: "",
       anotherPerson: "",
+      firstPersonSlug: "",
     };
   },
 
   mounted() {
     this.$route.params.slug;
     this.getPerson();
-    this.getPersonCategories();
-    this.getWorkCategories();
   },
   methods: {
     eliminar($slug) {
       this.$axios.delete("/api/person/" + $slug).then((res) => {});
-    },
-    cleanCategoryWorkForm() {
-      this.form_category_work = {
-        empresa: "",
-      };
-    },
-    cleanCategoryPersonForm() {
-      this.form_category_person = {
-        rh: "",
-        telefono: "",
-        cedula: "",
-        ciudad_natal: "",
-      };
     },
     cleanErrorsForm() {
       this.errors.firstname = "";
@@ -283,17 +115,61 @@ export default {
       this.errors.public_email = "";
       this.errors.birthday = "";
       this.generalError = "";
-      this.category_error = false;
-      (this.categoryPersonFieldsErrors = {
-        rh: "",
-        telefono: "",
-        cedula: "",
-        ciudad_natal: "",
-      }),
-        (this.categoryWorkFieldsErrors = {
-          empresa: "",
-        });
       this.generalInfo = "";
+    },
+    comprobarCadena(cadena, name) {
+      if (name == "firstname") {
+        for (let i = 0; i < cadena.length; i++) {
+          let caracter = cadena.charAt(i);
+
+          if (this.isNumeric(caracter)) {
+            console.log(caracter);
+            this.errors.firstname = "Este campo no puede contener números.";
+            this.hasErrors = true;
+          }
+        }
+      }
+      if (name == "secondname") {
+        for (let i = 0; i < cadena.length; i++) {
+          let caracter = cadena.charAt(i);
+
+          if (this.isNumeric(caracter)) {
+            console.log(caracter);
+            this.errors.secondname = "Este campo no puede contener números.";
+            this.hasErrors = true;
+          }
+        }
+      }
+      if (name == "lastname") {
+        for (let i = 0; i < cadena.length; i++) {
+          let caracter = cadena.charAt(i);
+
+          if (this.isNumeric(caracter)) {
+            console.log(caracter);
+            this.errors.lastname = "Este campo no puede contener números.";
+            this.hasErrors = true;
+          }
+        }
+      }
+      if (name == "secondLastname") {
+        for (let i = 0; i < cadena.length; i++) {
+          let caracter = cadena.charAt(i);
+
+          if (this.isNumeric(caracter)) {
+            console.log(caracter);
+            this.errors.secondLastname =
+              "Este campo no puede contener números.";
+            this.hasErrors = true;
+          }
+        }
+      }
+      if (name == "public_email") {
+        console.log("OK");
+      }
+      if (name == "birthday") {
+        console.log("OK");
+      }
+      console.log(cadena);
     },
     submit() {
       this.cleanErrorsForm();
@@ -325,6 +201,13 @@ export default {
           this.hasErrors = true;
         }
 
+        this.comprobarCadena(this.form.firstname, "firstname");
+        this.comprobarCadena(this.form.secondname, "secondname");
+        this.comprobarCadena(this.form.lastname, "lastname");
+        this.comprobarCadena(this.form.secondLastname, "secondLastname");
+        this.comprobarCadena(this.form.birthday, "birthday");
+        this.comprobarCadena(this.form.public_email, "email");
+
         if (!this.hasErrors) {
           this.full_name =
             this.form.firstname +
@@ -343,8 +226,16 @@ export default {
                 .then((res) => {
                   this.person = res.data;
                   if (this.person) {
-                    this.generalError =
-                      "La persona que intentas agregar ya existe.";
+                    oruga.notification.open({
+                      duration: 5000,
+                      message: `"La persona que intentas agregar <b>ya existe</b>, prueba buscarla en el administrador de personas."`,
+                      position: "bottom-right",
+                      variant: "danger",
+                      closable: true,
+                      onClose: () => {
+                        oruga.notification.open("Custom notification closed!");
+                      },
+                    });
                   }
                 })
                 .catch((err) => {
@@ -356,116 +247,49 @@ export default {
                         .get("/api/person/id/" + this.personSlug)
                         .then((res) => {
                           this.personId = res.data;
-                          //console.log(this.personId);
-
-                          if (this.c_personal) {
-                            if (this.form_category_person.rh == "") {
-                              this.categoryPersonFieldsErrors.rh =
-                                "primero define rh";
-                              this.category_error = true;
-                            }
-                            if (this.form_category_person.telefono == "") {
-                              this.categoryPersonFieldsErrors.telefono =
-                                "primero define telefono";
-                              this.category_error = true;
-                            }
-                            if (this.form_category_person.cedula == "") {
-                              this.categoryPersonFieldsErrors.cedula =
-                                "primero define cedula";
-                              this.category_error = true;
-                            }
-                            if (this.form_category_person.ciudad_natal == "") {
-                              this.categoryPersonFieldsErrors.ciudad_natal =
-                                "primero define tu ciudad de nacimiento.";
-                              this.category_error = true;
-                            }
-                            if (this.category_error == false) {
-                              //console.log("entro a categoria personal.");
-                              this.setFieldPersonCategory(
-                                "rh",
-                                this.form_category_person.rh
-                              );
-                              this.setFieldPersonCategory(
-                                "telefono",
-                                this.form_category_person.telefono
-                              );
-                              this.setFieldPersonCategory(
-                                "cedula",
-                                this.form_category_person.cedula
-                              );
-                              this.setFieldPersonCategory(
-                                "ciudad_natal",
-                                this.form_category_person.ciudad_natal
-                              );
-                            }
-                          }
-
-                          if (this.c_laboral) {
-                            if (this.form_category_work.empresa == "") {
-                              this.categoryWorkFieldsErrors.empresa =
-                                "primero define el campo empresa.";
-                              this.category_error = true;
-                            }
-                            if (this.category_error == false) {
-                              this.setFieldWorkCategory(
-                                "Empresa",
-                                this.form_category_work.empresa
-                              );
-                            }
-                          }
-
-                          if (!this.c_laboral && !this.c_personal) {
-                            this.generalInfo = "Persona creada exitosamente.";
-                            oruga.notification.open("Sucess");
-                          }
-
-                          if (this.category_error == true) {
-                            this.generalError =
-                              "Error al vincular categorías con el usuario2.";
-                            this.eliminar(this.personSlug);
-                          } else {
-                            oruga.notification.open("Sucess");
-                          }
+                          oruga.notification.open(
+                            "Persona creada exitosamente."
+                          );
                         })
                         .catch((err) => {
-                          // this.generalError =
-                          //   "Error al vincular categorías con el usuario.";
-                          // this.eliminar(this.personSlug); //console.log("Error al obtener el último usuario registrado.");
+                          oruga.notification.open(err);
                         });
-
-                      //this.personWithPersonCategories = res.data;
-                      //console.log(this.personWithPersonCategories);
                     })
                     .catch((err) => {
                       //console.log(err.response.data);
                       if (err.response.data.firstname)
-                        this.errors.firstname = err.response.data.firstname[0];
+                        this.errors.firstname =
+                          "El nombre que ingresaste no es válido.";
 
                       if (err.response.data.secondname)
                         this.errors.secondname =
-                          err.response.data.secondname[0];
+                          "El nombre que ingresaste no es válido.";
 
                       if (err.response.data.lastname)
-                        this.errors.lastname = err.response.data.lastname[0];
+                        this.errors.lastname =
+                          "El apellido que ingresaste no es válido.";
 
                       if (err.response.data.secondLastname)
                         this.errors.secondLastname =
-                          err.response.data.secondLastname[0];
+                          "El apellido que ingresaste no es válido.";
 
                       if (err.response.data.public_email)
                         this.errors.public_email =
-                          err.response.data.public_email[0];
+                          "El email que ingresaste no es válido.";
 
                       if (err.response.data.birthday)
-                        this.errors.birthday = err.response.data.birthday[0];
+                        this.errors.birthday =
+                          "La fecha ingresada no es válida.";
 
                       if (err.response.data.slug)
-                        this.generalError = "Error Slug.";
+                        oruga.notification.open(
+                          "La persona que intentas agregar ya existe, prueba buscarla en el administrador de personas."
+                        );
                     });
                 });
             });
         } else {
-          this.generalError = "Te faltan campos por llenar.";
+          this.generalError = "Algo no anda bien...";
         }
       }
       if (this.labelSubmit == "Editar") {
@@ -494,24 +318,71 @@ export default {
           this.hasErrors = true;
         }
 
+        this.comprobarCadena(this.form.firstname, "firstname");
+        this.comprobarCadena(this.form.secondname, "secondname");
+        this.comprobarCadena(this.form.lastname, "lastname");
+        this.comprobarCadena(this.form.secondLastname, "secondLastname");
+        this.comprobarCadena(this.form.birthday, "birthday");
+        this.comprobarCadena(this.form.public_email, "email");
+
         if (!this.hasErrors) {
-          if (this.person) {
-            this.$axios
-              .patch("/api/person/" + this.person.id, this.form)
-              .then((res) => {
-                console.log(res);
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          }
+          this.full_name =
+            this.form.firstname +
+            " " +
+            this.form.secondname +
+            " " +
+            this.form.lastname +
+            " " +
+            this.form.secondLastname;
+          this.$axios
+            .get("/api/person/buildSlug/" + this.full_name)
+            .then((res) => {
+              this.personSlug = res.data;
+              this.form.slug = this.personSlug;
+              this.$axios
+                .put("/api/person/" + this.firstPersonSlug, this.form)
+                .then((res) => {
+                  oruga.notification.open({
+                    duration: 5000,
+                    message: `"Usuario editado exitosamente."`,
+                    position: "bottom-right",
+                    variant: "primary",
+                    closable: true,
+                  });
+                  console.log(res);
+                })
+                .catch((err) => {
+                  //console.log(err.response.data);
+                  if (err.response.data.firstname)
+                    this.errors.firstname =
+                      "El nombre que ingresaste no es válido.";
+
+                  if (err.response.data.secondname)
+                    this.errors.secondname =
+                      "El nombre que ingresaste no es válido.";
+
+                  if (err.response.data.lastname)
+                    this.errors.lastname =
+                      "El apellido que ingresaste no es válido.";
+
+                  if (err.response.data.secondLastname)
+                    this.errors.secondLastname =
+                      "El apellido que ingresaste no es válido.";
+
+                  if (err.response.data.public_email)
+                    this.errors.public_email =
+                      "El email que ingresaste no es válido.";
+
+                  if (err.response.data.birthday)
+                    this.errors.birthday = "La fecha ingresada no es válida.";
+                });
+            });
         } else {
-          this.generalError = "Te faltan campos por llenar.";
+          this.generalError = "Algo no anda bien...";
         }
       }
-
-      //console.log(this.existPerson);
     },
+
     getPerson() {
       this.$axios
         .get("/api/person/slug/" + this.$route.params.slug)
@@ -519,6 +390,7 @@ export default {
           this.person = res.data;
           if (this.person) {
             this.labelSubmit = "Editar";
+            this.titleForm = "Editando a " + this.person.firstname;
           }
           this.form.firstname = this.person.firstname;
           this.form.secondname = this.person.secondname;
@@ -527,121 +399,19 @@ export default {
           this.form.birthday = this.person.birthday;
           this.form.public_email = this.person.public_email;
           this.form.slug = this.person.slug;
-          this.getWorkCategoriesFields();
-          this.getPersonCategoriesFields();
+          this.firstPersonSlug = this.person.slug;
           //console.log(this.person);
-          this.$axios.get("/api/person/id/" + this.person.slug).then((res) => {
-            this.person.id = res.data;
-          });
+          // this.$axios.get("/api/person/id/" + this.person.slug).then((res) => {
+          //   this.person.id = res.data;
+          // });
         });
     },
-    getPersonCategories() {
-      this.$axios.get("/api/category/getPersonCategories").then((res) => {
-        this.person_categories = res.data;
-        this.person_categories_options = JSON.parse(
-          this.person_categories[0].options
-        );
-        //console.log(this.person_categories_options);
-      });
-    },
-    getWorkCategories() {
-      this.$axios.get("/api/category/getWorkCategories").then((res) => {
-        this.work_categories = res.data;
-        this.work_categories_options = JSON.parse(
-          this.work_categories[0].options
-        );
-        //console.log(this.work_categories_options);
-      });
-    },
-    setFieldWorkCategory(name, value) {
-      this.field_to_post.owner = this.personId;
-      this.field_to_post.category_person_id = 2;
-      this.field_to_post.name = name;
-      this.field_to_post.value = value;
-      //console.log(this.field_to_post);
-      this.$axios
-        .post("/api/categoryPersonFields", this.field_to_post)
-        .then((res) => {
-          //console.log("categoría asignada con éxito!!!!");
-        })
-        .catch((err) => {
-          this.category_error = true;
-          //console.log("Error al vincular la categoría");
-          if (name == "Empresa")
-            this.categoryWorkFieldsErrors.empresa =
-              "Error valor campo categoría " + name;
-        });
-    },
-    setFieldPersonCategory(name, value) {
-      this.field_to_post.owner = this.personId;
-      this.field_to_post.category_person_id = 1;
-      this.field_to_post.name = name;
-      this.field_to_post.value = value;
-      //console.log(this.field_to_post);
-      this.$axios
-        .post("/api/categoryPersonFields", this.field_to_post)
-        .then(() => {
-          //console.log("categoría asignada con éxito!!!!");
-        })
-        .catch(() => {
-          this.category_error = true;
-          //console.log(name);
-
-          if (name == "cedula")
-            this.categoryPersonFieldsErrors.cedula =
-              "digita una cédula válida.";
-
-          if (name == "telefono")
-            this.categoryPersonFieldsErrors.telefono =
-              "digita un número telefónico válido.";
-          if (name == "rh")
-            this.categoryPersonFieldsErrors.rh = "rh debe estar definido.";
-          if (name == "ciudad_natal")
-            this.categoryPersonFieldsErrors.ciudad_natal =
-              "digita una ciudad de nacimiento entre 3 y 20 caracteres.";
-        });
-    },
-    getWorkCategoriesFields() {
-      this.$axios
-        .get("/api/category/getWorkCategoriesFields/" + this.person.id)
-        .then((res) => {
-          //console.log(res.data);
-          //console.log(this.person.id);
-          this.workCategoriesFields = res.data;
-          if (this.workCategoriesFields.length > 0) {
-            this.c_laboral = true;
-          }
-          if (this.workCategoriesFields[0].name == "Empresa") {
-            this.form_category_work.empresa =
-              this.workCategoriesFields[0].value;
-          }
-        });
-    },
-    getPersonCategoriesFields() {
-      this.$axios
-        .get("/api/category/getPersonCategoriesFields/" + this.person.id)
-        .then((res) => {
-          console.log(res);
-          //console.log(this.person.id);
-          this.personCategoriesFields = res.data;
-          if (this.personCategoriesFields.length > 0) {
-            this.c_personal = true;
-          }
-          this.personCategoriesFields.forEach((personCategorie) => {
-            if (personCategorie.name == "telefono") {
-              this.form_category_person.telefono = personCategorie.value;
-            }
-            if (personCategorie.name == "ciudad_natal") {
-              this.form_category_person.ciudad_natal = personCategorie.value;
-            }
-            if (personCategorie.name == "cedula") {
-              this.form_category_person.cedula = personCategorie.value;
-            }
-            if (personCategorie.name == "rh") {
-              this.form_category_person.rh = personCategorie.value;
-            }
-          });
-        });
+    isNumeric(val) {
+      if (Number(val)) {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
 };

@@ -7,15 +7,19 @@
         <div class="card-body">
           <h5 class="card-title">Autenticación</h5>
           <form @submit.prevent="login">
-            <o-field :variant="errors.login ? 'danger' : 'primary' " :message="errors.login" label="Email">
-              <o-input v-model="form.email" type="email">
-
-              </o-input>
+            <o-field
+              :variant="errors.login ? 'danger' : 'primary'"
+              :message="errors.login"
+              label="Email"
+            >
+              <o-input v-model="form.email" type="email"> </o-input>
             </o-field>
-            <o-field :variant="errors.password ? 'danger' : 'primary' " :message="errors.password" label="Password">
-              <o-input v-model="form.password" type="password">
-
-              </o-input>
+            <o-field
+              :variant="errors.password ? 'danger' : 'primary'"
+              :message="errors.password"
+              label="Password"
+            >
+              <o-input v-model="form.password" type="password"> </o-input>
             </o-field>
             <br />
             <o-button variant="info" native-type="submit">Login</o-button>
@@ -23,17 +27,15 @@
         </div>
       </div>
 
-
       <div class="col"></div>
     </div>
   </div>
 </template>
 
-
 <script>
-import { useProgrammatic } from '@oruga-ui/oruga-next'
+import { useProgrammatic } from "@oruga-ui/oruga-next";
 export default {
-  setup(){
+  setup() {
     const { oruga } = useProgrammatic();
   },
   data: () => ({
@@ -45,30 +47,35 @@ export default {
     errors: {
       login: "",
       password: "",
-    }
+    },
   }),
   methods: {
-    
-    cleanErrorsForm(){
-      this.errors.login="";
-      this.errors.password="";
+    cleanErrorsForm() {
+      this.errors.login = "";
+      this.errors.password = "";
     },
     login() {
       const { oruga } = useProgrammatic();
       this.cleanErrorsForm();
       console.log("Enviando formulario", this.form);
       this.$axios.defaults.withCredentials = true;
-      this.$axios.post("/api/login", this.form).then((res) => {
-        oruga.notification.open('Login Success');
-        console.log(res.data);
-        this.$root.setCookieAuth(res.data);
-        window.location.reload();
-      }).catch((error)=>{
-        // if(error.response.data){
-        //   this.errors.login = error.response.data.errors.email;
-        //   this.errors.password = error.response.data.errors.password;
-        // }
+      this.$axios.get("/sanctum/csrf-cookie").then((response) => {
+        this.$axios
+        .post("/api/login", this.form)
+        .then((res) => {
+          oruga.notification.open("Login Success");
+          console.log(res.data);
+          this.$root.setCookieAuth(res.data);
+          //window.location.reload();
+        })
+        .catch((error) => {
+          // if(error.response.data){
+          //   this.errors.login = error.response.data.errors.email;
+          //   this.errors.password = error.response.data.errors.password;
+          // }
+        });
       });
+      
     },
   },
 };
@@ -77,7 +84,6 @@ export default {
 <style scoped>
 .login-container {
   height: 400px;
-  
 }
 
 .login-card {

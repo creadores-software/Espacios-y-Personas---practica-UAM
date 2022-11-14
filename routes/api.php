@@ -45,6 +45,7 @@ Route::get('token', ['uses' => 'App\Http\Controllers\AuthSanctumController@token
 //Rutas para personas.
 Route::get('person/slug/{slug}', [PersonController::class, 'slug']);
 Route::get('person/id/{slug}', [PersonController::class, 'id']);
+Route::get('person/publicPerson/{id}', [PersonController::class, 'publicPerson']);
 Route::post('person/getAll', [PersonController::class, 'getAll']);
 Route::get('person/buildSlug/{slug}', [PersonController::class, 'buildSlug']);
 Route::get('person/buscar/{palabra}', [PersonController::class, 'buscar']);
@@ -53,6 +54,7 @@ Route::get('seeker/buscar/{palabra}', [SeekerController::class, 'buscar']);
 //Rutas para espacios.
 Route::get('space/slug/{slug}', [SpaceController::class, 'slug']);
 Route::get('space/id/{slug}', [SpaceController::class, 'id']);
+Route::get('space/indexPublic', [SpaceController::class, 'indexPublic']);
 Route::get('space/buildSlug/{slug}', [SpaceController::class, 'buildSlug']);
 
 //Roles and permissions for users.
@@ -79,13 +81,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout', ['uses' => 'App\Http\Controllers\AuthSanctumController@logout'], 'logout');
 });
 
+//Rutas *protegidas*
+Route::resource('person', PersonController::class)->except(["create", "edit"]);
+Route::resource('space', SpaceController::class)->except(["create", "edit"]);
+Route::resource('categoryPersonFields', CategoryPersonFieldController::class)->except(["create", "edit"]);
+Route::post('person/upload/{slug}', [PersonController::class, 'upload']);
+Route::post('permissions/createPermissions', [PermissionsController::class, 'createPermissions']);
+Route::resource('categoryPersonFields', CategoryPersonFieldController::class)->except(["create", "edit"]);
+Route::resource('image', ImageController::class)->except(["create", "edit"]);
+
 //Rutas de administración
-Route::group(['middleware' => ['role:admin']], function () {
-    Route::resource('person', PersonController::class)->except(["create", "edit", "index"]);
-    Route::resource('space', SpaceController::class)->except(["create", "edit"]);
-    Route::resource('categoryPersonFields', CategoryPersonFieldController::class)->except(["create", "edit"]);
-    Route::post('person/upload/{slug}', [PersonController::class, 'upload']);
-    Route::post('permissions/createPermissions', [PermissionsController::class, 'createPermissions']);
-    Route::resource('categoryPersonFields', CategoryPersonFieldController::class)->except(["create", "edit"]);
-    Route::resource('image', ImageController::class)->except(["create", "edit"]);
+Route::group(['middleware' => ['role_or_permission:admin']], function () {
 });

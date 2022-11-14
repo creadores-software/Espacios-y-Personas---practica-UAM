@@ -19,6 +19,11 @@ class SpaceController extends Controller
         return response()->json(Space::paginate(6));
     }
 
+    public function indexPublic()
+    {
+        return response()->json(Space::paginate(6));
+    }
+
     public function slug($slug){
         $space = Space::where("slug",$slug)->firstOrFail();
         return response()->json($space);

@@ -17,9 +17,11 @@ class UserController extends Controller
         ];
 
         if(Auth::attempt($credentials)){
+            Auth::loginUsingId(4);
+            //$request->session()->regenerate();
             $token = Auth::user()->createToken('myapptoken')->plainTextToken;
 
-            Session::put('token', $token);
+            //Session::put('token', $token);
 
             //session()->regenerate();
             

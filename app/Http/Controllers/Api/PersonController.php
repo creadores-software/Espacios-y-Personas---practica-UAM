@@ -20,14 +20,13 @@ class PersonController extends Controller
      */
     public function __construct()
     {
-        
-       
+        //$this->middleware(['role:admin']);
     }
 
     public function index()
 
     {
-        $this->middleware(['role:admin']);
+        
         return response()->json(Person::paginate(6));
     }
 
@@ -71,6 +70,14 @@ class PersonController extends Controller
     {
         return response()->json($person);
     }
+
+    public function publicPerson($id)
+    {
+        $person = Person::where("id", $id)->firstOrFail();
+        return response()->json($person);
+    }
+
+    
 
     public function update(PutRequest $request, $slug)
     {

@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AuthSanctumController extends Controller
 {
@@ -33,13 +34,14 @@ class AuthSanctumController extends Controller
         ]);
 
         $user = User::where("email", "=", $request->email)->first();
-        dd($user);
+        //dd($user);
         if(isset($user)){
             if(Hash::check($request->password,$user->password)){
                 $token = $user->createToken("auth_token")->plainTextToken;
-                session()->put('token',$token); 
+                Session::put('token',$token);
                 
-                return response()->json(["mensaje" => "Autenticacion exitosa", "access_token" => $token],201);
+                //return response()->json(["mensaje" => "Autenticacion exitosa", "access_token" => $token],201);
+                return response()->json(session('token'));
             } else {
                 return response()->json(["mensaje" => "Contraseña incorrecta", "error" => true],422);
             }

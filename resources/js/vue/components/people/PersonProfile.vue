@@ -88,6 +88,23 @@
               alt="Espacios + Personas UAM"
             />
           </div>
+          <div v-if="person.image == null">
+            <img
+              border="3"
+              src="https://cdn.pixabay.com/photo/2022/08/09/19/27/people-7375689_960_720.png"
+              class="card-img-top img-fluid img-card mb-3 mt-5"
+              alt="Espacios + Personas UAM"
+            />
+          </div>
+
+          <div v-if="person.image">
+            <img
+              border="3"
+              :src="`http://127.0.0.1:5173/public/image/people/` + person.image"
+              class="card-img-top img-fluid img-card mb-3 mt-5"
+              alt="Espacios + Personas UAM"
+            />
+          </div>
           <div class=" card" v-if="person.image == null">
             <img
               border="3"
@@ -208,7 +225,7 @@ export default {
           console.log(res.data);
           console.log(this.person.id);
           this.personCategories = res.data;
-          if (this.personCategories != "") {
+          if(this.personCategories != ""){
             this.hasPersoncategories = true;
           }
         });

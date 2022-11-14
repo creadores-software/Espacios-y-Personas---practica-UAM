@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         if(!File::exists($filepath)){
             File::makeDirectory($filepath);  //follow the declaration to see the complete signature
         }
-        //$this->call(UserSeeder::class);
+        $this->call(UserSeeder::class);
         $this->call(PersonSeeder::class);
         $this->call(Category_people::class);
         $this->call(Category_people_field::class);

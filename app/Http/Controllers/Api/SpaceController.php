@@ -24,6 +24,7 @@ class SpaceController extends Controller
         return response()->json($space);
     }
 
+
     public function buildSlug($name){
         return response()->json(Str::slug($name, '-'));
     }
@@ -42,11 +43,14 @@ class SpaceController extends Controller
      */
     public function store(Request $request)
     {
-        echo('entrando al store');
-        $data = $request->validated();          
-        return response()->json(Space::create($data));
+        echo('entrando al store');        
+        return response()->json(Space::create($request->toArray()));
     }
 
+    // public function setOwner(Request $request, $idOwner, $slug){
+    //     $space = Space::where("slug",$slug)->firstOrFail();
+    //     $space['manager']
+    // }
     /**
      * Display the specified resource.
      *
@@ -58,10 +62,10 @@ class SpaceController extends Controller
         return response()->json($space);
     }
 
-    public function update(Request $request, Space $space)
+    public function update(Request $request, $slug)
     {
-        $data = $request->validated();
-        $space->update($data);
+        $space = Space::where("slug",$slug)->firstOrFail();
+        $space->update($request->toArray());
         return response()->json($space);
     }
 

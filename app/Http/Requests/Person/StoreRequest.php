@@ -26,13 +26,13 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "firstname" => "required|min:3|max:20",
-            "secondname" => "required|min:3|max:20",
-            "lastname" => "required|min:3|max:20",
-            "secondLastname" => "required|min:3|max:20",
-            "public_email" => "required|min:20|max:70",
-            "birthday" => "required|min:5|max:15",
-            "slug" => "unique:people", //|unique:people
+            "firstname" => "required|min:3|max:20|string",
+            "secondname" => "required|min:3|max:20|string",
+            "lastname" => "required|min:3|max:20|string",
+            "secondLastname" => "required|min:3|max:20|string",
+            "public_email" => "required|min:20|max:70|string",
+            "birthday" => "required|min:5|max:10|string",
+            "slug" => "unique:people|string", //|unique:people
         ];
     }
 

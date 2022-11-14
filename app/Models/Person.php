@@ -13,7 +13,7 @@ class Person extends Model implements Searchable
     
     use HasFactory;
 
-    protected $fillable = ['firstname', 'secondname', 'lastname', 'secondLastname', 'public_email', 'birthday', 'slug'];
+    protected $fillable = ['firstname', 'secondname', 'lastname', 'secondLastname', 'public_email', 'birthday', 'slug', 'image'];
 
 
     //Relación uno a uno inversa

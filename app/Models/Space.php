@@ -12,6 +12,8 @@ class Space extends Model implements Searchable
 {
     use HasFactory;
 
+    protected $fillable = ['name','description','zone','capacity','longitude','latitude','slug','manager'];
+
     public function categories()
     {
         return $this->hasMany('App\Models\CategorySpace');

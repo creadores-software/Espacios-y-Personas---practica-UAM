@@ -32,7 +32,7 @@ class PutRequest extends FormRequest
             "secondLastname" => "required|min:3|max:20",
             "public_email" => "required|min:20|max:70",
             "birthday" => "required|min:5|max:15",
-            "slug" => "required",
+            "slug" => "",
         ];
     }
 

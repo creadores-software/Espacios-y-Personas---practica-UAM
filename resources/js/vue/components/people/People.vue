@@ -54,15 +54,31 @@
                 {{ p.secondLastname }}
               </h3>
             </div>
-            <img
-              border="3"
-              src="https://cdn.pixabay.com/photo/2022/08/09/19/29/people-7375704_960_720.png"
-              class="card-img-top img-fluid img-card mb-3"
-              alt="Espacios + Personas UAM"
-            />
+            <div v-if="p.image">
+              <img
+                border="3"
+                :src="
+                  `http://127.0.0.1:5173/public/image/people/` + p.image
+                "
+                class="card-img-top img-fluid img-card mb-3"
+                alt="Espacios + Personas UAM"
+              />
+            </div>
+            <div v-if="p.image == null">
+              <img
+                border="3"
+                src="https://cdn.pixabay.com/photo/2022/08/09/19/29/people-7375704_960_720.png"
+                class="card-img-top img-fluid img-card mb-3"
+                alt="Espacios + Personas UAM"
+              />
+            </div>
+
             <div>
               <a>
-                <router-link :to="{name:'PersonProfile', params:{ 'slug' : p.slug }}">Mirar perfil</router-link>
+                <router-link
+                  :to="{ name: 'PersonProfile', params: { slug: p.slug } }"
+                  >Mirar perfil</router-link
+                >
               </a>
             </div>
           </div>
@@ -117,9 +133,9 @@ export default {
         this.isLoading = false;
       });
     },
-    goTo: function(ruta) {
-      this.$router.push({name : ruta});
-    }
+    goTo: function (ruta) {
+      this.$router.push({ name: ruta });
+    },
   },
   async mounted() {
     this.listPage();

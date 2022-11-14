@@ -39,8 +39,8 @@ export default {
   data: () => ({
     user: {},
     form: {
-      email: "soyeladmin@hotmail.com",
-      password: "admin",
+      email: "ernser.kory@example.org",
+      password: "password",
     },
     errors: {
       login: "",
@@ -48,6 +48,7 @@ export default {
     }
   }),
   methods: {
+    
     cleanErrorsForm(){
       this.errors.login="";
       this.errors.password="";
@@ -58,13 +59,15 @@ export default {
       console.log("Enviando formulario", this.form);
       this.$axios.defaults.withCredentials = true;
       this.$axios.post("/api/login", this.form).then((res) => {
-        oruga.notification.open('Login Success')
-        console.log(res);
+        oruga.notification.open('Login Success');
+        console.log(res.data);
+        this.$root.setCookieAuth(res.data);
+        window.location.reload();
       }).catch((error)=>{
-        if(error.response.data){
-          this.errors.login = error.response.data.errors.email;
-          this.errors.password = error.response.data.errors.password;
-        }
+        // if(error.response.data){
+        //   this.errors.login = error.response.data.errors.email;
+        //   this.errors.password = error.response.data.errors.password;
+        // }
       });
     },
   },

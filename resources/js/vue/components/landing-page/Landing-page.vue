@@ -33,14 +33,11 @@
             <li class="nav-item">
               <a class="nav-link" v-on:click="goTo('Login')"  href="#">Ingresar</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="isAdmin">
               <a class="nav-link" v-on:click="goTo('Admin')"  href="#">Admin</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" v-on:click="goTo('Seeker')"  href="#">Buscador</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" v-on:click="goTo('Controller')"  href="#">Prueba CRUD</a>
             </li>
           </ul>
           <form class="d-flex" role="search">
@@ -65,13 +62,43 @@
 import FooterVue from './Footer.vue';
 
 export default {
+  data() {
+    return {
+      isAuth : null,
+      roles : null,
+      isAdmin: null,
+    }
+  },
   components: {
     FooterVue,
   },
   methods: {
     goTo: function(ruta) {
       this.$router.push({name : ruta});
-    }
+    },
+    getRol: function(){
+      console.log(this.$cookies.get("auth").user.id);
+      var idUser = this.$cookies.get("auth").user.id;
+      this.$axios.get("/api/permissions/getUserPermissions/" + idUser).then((res) => {
+        this.roles = res.data;
+        console.log(this.roles);
+        this.setRol();
+      });
+    },
+    setRol: function(){
+      this.roles.forEach(element => {
+        console.log(element);
+        if(element == "admin"){
+          this.isAdmin = true;
+        }
+      });
+    },
+  },
+  mounted() {
+    this.isAuth = this.$root.isLoggedIn;
+    console.log(this.isAuth);
+    console.log(this.$root);
+    this.getRol();
   }
 }
 </script>

@@ -25,7 +25,7 @@
               </div>
             </div>
           </div>
-          <div class="col-12 pt-1" v-if="space.manager">
+          <div class="col-12 pt-1" v-if="owner">
             <div class="card shadow-lg">
               <div class="card-body" style="text-align: justify">
               <h4 class="fw-bold">Encargado del espacio</h4>
@@ -59,7 +59,7 @@ export default {
       categories: "",
       space: "",
       hasCategories: false,
-      owner: "",
+      owner: null,
     };
   },
   mounted() {
@@ -79,7 +79,7 @@ export default {
       });
     },
     getOwner() {
-      this.$axios.get("/api/person/" + this.space.manager).then((res) => {
+      this.$axios.get("/api/person/publicPerson/" + this.space.manager).then((res) => {
         console.log(res.data);
         this.owner = res.data;
       });

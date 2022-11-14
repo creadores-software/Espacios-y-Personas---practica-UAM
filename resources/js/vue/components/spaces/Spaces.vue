@@ -113,7 +113,7 @@ export default {
     },
     listPage(p) {
       this.isLoading = true;
-      this.$axios.get("/api/space?page=" + this.currentPage).then((res) => {
+      this.$axios.get("/api/space/indexPublic?page=" + this.currentPage).then((res) => {
         this.spaces = res.data;
         console.log(this.spaces.data);
         this.isLoading = false;

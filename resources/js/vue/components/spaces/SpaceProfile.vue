@@ -28,24 +28,52 @@
           <div class="col-12 pt-1" v-if="owner">
             <div class="card shadow-lg">
               <div class="card-body" style="text-align: justify">
-              <h4 class="fw-bold">Encargado del espacio</h4>
+                <h4 class="fw-bold">Encargado del espacio</h4>
                 <div class="card-text">
-                {{ owner.firstname }} {{ owner.secondname }} {{ owner.lastname }}
+                  {{ owner.firstname }} {{ owner.secondname }} {{ owner.lastname }}
                 </div>
                 <div class="card-text">
-                  <o-button inverted> <router-link
-                  :to="{ name: 'PersonProfile', params: { slug: owner.slug } }"
-                  >Mirar perfil</router-link
-                > </o-button>
+                  <o-button inverted>
+                    <router-link
+                      :to="{ name: 'PersonProfile', params: { slug: owner.slug } }"
+                      >Mirar perfil</router-link
+                    >
+                    
+                  </o-button>
+                  <o-button @click="printDate">
+               Clickme
+              </o-button>
                 </div>
-                
               </div>
             </div>
           </div>
+
+          <div class="col-12 pt-1 mb-4">
+            <div class="card shadow-lg">
+              <div class="card-body" style="text-align: justify">
+                <h4 class="fw-bold">Calendario</h4>
+                <div class="card-text row">
+                  <div class="col"></div>
+                  <div class="col">
+                    <v-calendar color="red" :attributes='attrs' is-dark />
+                    
+                  </div>
+                  <div class="col">
+                  <v-date-picker mode="date" v-model="date" is-range :model-config="modelConfig"/>
+                  {{date}}
+                  {{attrs[4]}}
+                  
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          
         </div>
       </div>
 
-      <div class="col">
+      <div class="col-12" style="height: 500px">
         <pre></pre>
       </div>
     </div>
@@ -60,6 +88,31 @@ export default {
       space: "",
       hasCategories: false,
       owner: null,
+      date: new Date(),
+      dates: [],
+      attrs: [
+        {
+          key: 0,
+          highlight: true,
+          dates: 'Wed Nov 30 2022 17:35:23 GMT-0500 (hora estándar de Colombia)',
+        },
+        {
+          key: 1,
+          highlight: true,
+          dates: 'Wed Nov 29 2022 17:35:23 GMT-0500 (hora estándar de Colombia)',
+        },
+        {
+          key: 4,
+          bar: true,
+          content: 'red',
+          popover: { label: "Fecha importante 1", }, 
+          dates: {start: '2022-11-09', end: '2022-11-11'},
+        },
+      ],
+      modelConfig: {
+        type: 'string',
+        mask: 'YYYY-MM-DD', // Uses 'iso' if missing
+      },
     };
   },
   mounted() {
@@ -68,14 +121,22 @@ export default {
     this.getSpace();
   },
   methods: {
-    goProfile() {
-
+    printDate() {
+      console.log(this.date);
+    },
+    goProfile() {},
+    getReserves(){
+      this.$axios.get("/api/space_reserves/getSpacesReserves/" + this.space.id).then((res) => {
+        this.dates = res.data;
+        console.log(res.data);
+      });
     },
     getSpace() {
       this.$axios.get("/api/space/slug/" + this.$route.params.slug).then((res) => {
         this.space = res.data;
         console.log(this.space);
         this.getOwner();
+        this.getReserves();
       });
     },
     getOwner() {

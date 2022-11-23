@@ -19,6 +19,11 @@ class Space extends Model implements Searchable
         return $this->hasMany('App\Models\CategorySpace');
     }
 
+    public function dates()
+    {
+        return $this->hasMany('App\Models\SpaceReserves');
+    }
+
     //Para que el modelo sea buscable
     public function getSearchResult(): SearchResult
      {

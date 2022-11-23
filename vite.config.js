@@ -18,6 +18,9 @@ export default defineConfig({
                     includeAbsolute: false,
                 },
             },
+            resolve: {
+                dedupe: ['vue']
+              },
         }),
     ],
     resolve: {

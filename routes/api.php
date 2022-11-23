@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\PersonController;
 use App\Http\Controllers\Api\SpaceController;
 use App\Http\Controllers\Api\SeekerController;
+use App\Http\Controllers\Api\SpaceReserveController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -81,13 +82,16 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout', ['uses' => 'App\Http\Controllers\AuthSanctumController@logout'], 'logout');
 });
 
+//Rutas para las reservas
+Route::get('space_reserves/getSpacesReserves/{space_id}', [SpaceReserveController::class, 'getSpacesReserves']);
+
 //Rutas *protegidas*
 Route::resource('person', PersonController::class)->except(["create", "edit"]);
 Route::resource('space', SpaceController::class)->except(["create", "edit"]);
 Route::resource('categoryPersonFields', CategoryPersonFieldController::class)->except(["create", "edit"]);
 Route::post('person/upload/{slug}', [PersonController::class, 'upload']);
 Route::post('permissions/createPermissions', [PermissionsController::class, 'createPermissions']);
-Route::resource('categoryPersonFields', CategoryPersonFieldController::class)->except(["create", "edit"]);
+//Route::resource('categoryPersonFields', CategoryPersonFieldController::class)->except(["create", "edit"]);
 Route::resource('image', ImageController::class)->except(["create", "edit"]);
 
 //Rutas de administración

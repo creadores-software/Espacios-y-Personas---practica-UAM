@@ -31,6 +31,9 @@ import SpaceList from '../components/admin/space-admin/SpaceList.vue'
 //Events
 import Events from '../components/events/Events.vue';
 
+//Reservas
+import Bookings from '../components/events/Bookings.vue';
+
 //About
 import About from '../components/about/About.vue';
 
@@ -48,6 +51,11 @@ import CategorySpace from '../components/admin/space-admin/CategorySpace.vue';
 
 
 const routes = [
+    {
+        name: 'Bookings',
+        path: '/vue/events/booking',
+        component: Bookings
+    },
     {
         name: 'Login',
         path: '/vue/login',

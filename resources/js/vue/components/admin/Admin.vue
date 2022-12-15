@@ -5,18 +5,18 @@
         <h1 class="fw-bold pt-5">Plataforma de administración.</h1>
       </div>
       <div class="col-12 mb-2">
-        <o-button @click="goTo('PersonList')" variant="info"
+        <o-button class="btn-menu" @click="goTo('PersonList')" variant="primary"
           >Administrar Personas</o-button
         >
       </div>
       <div class="col-12 mb-2">
-        <o-button @click="goTo('SpaceList')" variant="danger"
+        <o-button class="btn-menu" @click="goTo('SpaceList')" variant="primary"
           >Administrar Espacios</o-button
         >
       </div>
       <div class="col-12">
-        <o-button @click="goTo('Bookings')" variant="primary"
-          >Administrar Reservas</o-button
+        <o-button class="btn-menu" @click="goTo('Bookings')" variant="primary"
+          >Crear Reservas</o-button
         >
       </div>
     </div>
@@ -33,3 +33,10 @@ export default {
   },
 };
 </script>
+<style scoped>
+
+.btn-menu:hover{
+  transform: scale(1.1);
+}
+
+</style>

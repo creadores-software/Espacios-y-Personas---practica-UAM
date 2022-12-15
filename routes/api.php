@@ -84,6 +84,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 //Rutas para las reservas
 Route::get('space_reserves/getSpacesReserves/{space_id}', [SpaceReserveController::class, 'getSpacesReserves']);
+Route::post('space_reserves/setSpacesReserves', [SpaceReserveController::class, 'setSpacesReserves']);
+Route::post('space_reserves/deleteSpaceReserve', [SpaceReserveController::class, 'deleteSpaceReserve']);
 
 //Rutas *protegidas*
 Route::resource('person', PersonController::class)->except(["create", "edit"]);

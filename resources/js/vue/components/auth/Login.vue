@@ -50,6 +50,9 @@ export default {
     },
   }),
   methods: {
+    goTo: function (ruta) {
+      this.$router.push({ name: ruta });
+    },
     cleanErrorsForm() {
       this.errors.login = "";
       this.errors.password = "";
@@ -66,13 +69,9 @@ export default {
           oruga.notification.open("Login Success");
           console.log(res.data);
           this.$root.setCookieAuth(res.data);
-          //window.location.reload();
+          window.location.reload();
         })
         .catch((error) => {
-          // if(error.response.data){
-          //   this.errors.login = error.response.data.errors.email;
-          //   this.errors.password = error.response.data.errors.password;
-          // }
         });
       });
       

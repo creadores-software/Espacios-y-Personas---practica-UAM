@@ -1,0 +1,79 @@
+﻿Documento de Instalación
+
+
+En la presente sección se informa el paso a paso para instalar el proyecto el cual se está trabajando.
+
+
+1. Instalación de Laragon. (Download, 2022)
+2. Configuración de Laragon: 
+   1. Actualizar a Laravel 9. (Laravel - The PHP Framework For Web Artisans, 2022)
+      1. Oprimimos click derecho en Laragon y accedemos a Quick app-> configuration.
+      2. Escribimos el comando para crear un proyecto con la última versión de Laravel en la consola de comandos.(Laravel - The PHP Framework For Web Artisans, 2022).
+composer create-project laravel/laravel %s "9.*" --prefer-dist 
+   2. Actualizar Node Js. (Node.js, 2022)
+      1. Descargamos la última versión de NodeJs. 
+      2. Pegamos en la ubicación de nuestro Laragon: C:\laragon\bin\nodejs.
+      3. Y elegimos la versión de Node dando click derecho en la interfaz de usuario de Laragon y eligiendo la opción Node.js.
+   3. Actualizar MySQL. (MySQL :: Download MySQL Community Server (Archived Versions), 2022)
+      1. Descargamos la versión 5.7.33 de MySQL
+      2. Pegamos en la ubicación de nuestro Laragon: C:\laragon\data\mysql.
+      3. Y elegimos la versión de MySQL dando click derecho en la interfaz de usuario de Laragon y eligiendo la opción MySQL.
+   4. Actualizar PHP. (PHP: Downloads, 2022)
+      1. Descargamos la versión 5.7.33 de MySQL
+      2. Pegamos en la ubicación de nuestro Laragon: C:\laragon\data\mysql.
+      3. Y elegimos la versión de MySQL dando click derecho en la interfaz de usuario de Laragon y eligiendo la opción MySQL.
+3. Creación de un nuevo proyecto en Laravel.
+   1. Creamos un nuevo proyecto a través de Quick App. Este proyecto quedará guardado en: C:\laragon\www. (Habilitar la funcionalidad de crear automáticamente host virtuales en Laragon)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Configuración de ambiente
+
+
+Ejecutar npm i para la creación de los módulos que necesita el proyecto para funcionar.
+
+
+
+
+
+
+Conexión a base de datos
+
+
+Para la conexión a la base de datos se debe configurar una nueva conexión en Laragon e indicar en el archivo de entorno tanto el nombre de la base de datos como la contraseña.
+
+
+DB_DATABASE=espacios-personas-final
+DB_USERNAME=root
+DB_PASSWORD=
+Migraciones y modelos
+
+
+Se realizan las migraciones de las tablas con el comando php artisan migrate
+
+
+CRUD y API
+
+
+Para la creación de un CRUD que permita conectar los recursos que ofrecen los servicios del backend hacía las vistas del frontend; se ocupa crear un API tipo REST que será consumido gracias a axios, y mediante Laravel Sanctum se crea una autenticación para los usuarios.
+RUN
+Para correr el proyecto basta con ejecutar npm run dev en la consola e ingresar a la url que nos genera Laragon según el nombre del proyecto.

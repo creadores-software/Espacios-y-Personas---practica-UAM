@@ -1,0 +1,9 @@
+﻿Software utilizado y código fuente
+
+
+* Para el desarrollo del proyecto se utilizó Vue.js 3 para el frontend de la aplicación web.
+* Laravel 9 para el backend.
+* Node.js como entorno de servidor.
+* MySQL para el manejo de las bases de datos.
+* PHP y Javascript como lenguajes de programación.
+* El código fuente de la aplicación se encuentra en el siguiente enlace de github:

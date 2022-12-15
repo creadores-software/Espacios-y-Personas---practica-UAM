@@ -47,6 +47,8 @@ import Controller from '../components/controllerTest/ControllerTest.vue';
 
 import CategorySpace from '../components/admin/space-admin/CategorySpace.vue';
 
+import ReservesSpace from '../components/admin/space-admin/ReservesSpace.vue';
+
 
 
 
@@ -145,6 +147,11 @@ const routes = [
         name: 'EditCategoryPerson',
         path: '/vue/admin/person/editCategory/:slug?',
         component: EditCategoryPerson,
+    },
+    {
+        name: 'ReservesSpace',
+        path: '/vue/admin/space/reservesSpace/:slug?',
+        component: ReservesSpace,
     }
 ]
 

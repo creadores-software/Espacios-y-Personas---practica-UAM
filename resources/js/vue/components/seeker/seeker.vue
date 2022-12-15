@@ -1,21 +1,22 @@
 <template>
-  <div class="container ">
-    <div class="row content ">
-      <div class="col"></div>
-      <div class="col ">
-        <h1>Buscador</h1>
+  <div class="container align-items-center">
+    <div class="row content">
+      <div class="col mt-5"></div>
+      <div class="col mt-5">
+        <h1>Buscador de espacios y personas</h1>
+
+        <small class="text-muted">Primero ingresa el nombre de una persona o espacio que quieras buscar.</small>
         <div class="align-middle">
           <o-field label="">
-          <o-input v-model="search"></o-input>
+          <o-input placeholder="Prueba buscar 'Bloque F'" v-model="search"></o-input>
         </o-field>
         <div v-if="people" >
           <span>resultado:</span>
-          <ul class="list-group" v-for="(result, index) in people" :key="index">
-            
-            <li class="list-group-item">{{ result.title}}</li>
+          <ul class="list-group mb-2" v-for="(result, index) in people" :key="index">
+            <li class="list-group-item item-buscador" @click="irAlPerfil(result)">{{ result.title }}</li>
           </ul>
         </div>
-        <o-button variant="info" @click="buscar(search)">buscar</o-button>
+        <o-button variant="info" class="" @click="buscar(search)">Buscar</o-button>
         </div>
         
       </div>
@@ -27,10 +28,21 @@
 <script>
 export default {
   data: () => ({
-    search: "Bloque F",
+    search: "",
     people: "",
   }),
   methods: {
+    irAlPerfil(result) {
+      if(result.type == "spaces"){
+        this.goTo('SpaceProfile', { slug: result.searchable.slug});
+      }
+      if(result.type == "people"){
+        this.goTo('PersonProfile', { slug: result.searchable.slug});
+      }
+    },
+    goTo: function (ruta , params) {
+      this.$router.push({ name: ruta, params: params });
+    },
     buscar(search) {
       this.$axios
         .get("/api/seeker/buscar/" + search)
@@ -51,6 +63,12 @@ export default {
 <style lang="scss" scoped>
   .content{
     height: 400px;
+    background: white !important;
+  }
+
+  .item-buscador:hover{
+    cursor:pointer;
+    background: #EAEAEA;
   }
 </style>>
 

@@ -26,7 +26,7 @@
               ¿Necesitas encontrar un miembro de la comunidad UAM en
               específico?, usa nuestro buscador personalizado.
             </p>
-            <a href="#" class="btn btn-primary">Buscar</a>
+            <a href="#" @click="goTo('Seeker')" class="btn btn-primary">Buscar</a>
           </div>
         </div>
       </div>
@@ -72,7 +72,6 @@
                 alt="Espacios + Personas UAM"
               />
             </div>
-
             <div>
               <a>
                 <router-link

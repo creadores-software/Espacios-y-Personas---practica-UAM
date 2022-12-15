@@ -1,8 +1,8 @@
 <template>
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a class="navbar-brand" v-on:click="goTo('Presentation')" href="#"
-        >Espacios & Personas</a
+      <a class="navbar-brand brand" v-on:click="goTo('Presentation')" href="#"
+        ><h2>Espacios & Personas</h2></a
       >
       <button
         class="navbar-toggler"
@@ -16,7 +16,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-field">
+        <ul class="navbar-nav nav-link-style me-auto mb-2 mb-lg-0 nav-field">
           <li class="nav-item">
             <a
               class="nav-link"
@@ -33,12 +33,6 @@
             <a class="nav-link" v-on:click="goTo('People')" href="#">Personas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" v-on:click="goTo('Events')" href="#">Eventos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" v-on:click="goTo('About')" href="#">Acerca de</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" v-on:click="goTo('Login')" href="#">Ingresar</a>
           </li>
           <li class="nav-item" v-if="isAdmin">
@@ -48,7 +42,9 @@
             <a class="nav-link" v-on:click="goTo('Seeker')" href="#">Buscador</a>
           </li>
         </ul>
-        <form class="d-flex" role="search">
+        
+        <!-- <form class="d-flex" role="search">
+        
           <input
             class="form-control me-2"
             type="search"
@@ -56,7 +52,7 @@
             aria-label="Search"
           />
           <button class="btn btn-outline-info" type="submit">Buscar</button>
-        </form>
+        </form> -->
       </div>
     </div>
   </nav>
@@ -110,8 +106,21 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 * {
   font-family: "Barlow Condensed", sans-serif;
+}
+
+.nav-link {
+  color: #4984BD;
+}
+
+.nav-link:hover {
+  color: #35628c;
+}
+
+
+.brand {
+  color: black;
 }
 </style>

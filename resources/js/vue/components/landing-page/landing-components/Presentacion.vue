@@ -1,18 +1,24 @@
 <template>
   <div class="container presentacion p-0">
-    <div class="head row align-items-center">
-      <!-- Texto centrado con el párrafo -->
-      <div class="col fondo-texto">
-        <h1 class="titulo-p fw-bold">Conoce lo que la UAM tiene para ti</h1>
-        <p class="texto-p">
-          A través de esta plataforma tú podrás acceder a información de los
-          espaciós, personas y eventos que tiene la universidad.
-        </p>
-        <o-button variant="info">Mirar buscador</o-button>
-        <o-button inverted>Docs</o-button>
+    <section class="row align-items-center pt-5">
+      <div class="col-2"></div>
+      <div class="col">
+        <div class="container-img pt-5">
+          <img class="img-uam" src="./img/uam.png" alt="" />
+        </div>
+        <div class="card text-center">
+          <div class="card-body">
+            <h3 class="card-title">Bienvenido a espacios y personas UAM</h3>
+            <p class="card-text">
+              ¿Necesitas encontrar un espacio o un miembro de la comunidad UAM en
+              específico?, usa nuestro buscador personalizado.
+            </p>
+            <a @click="goTo('Seeker')" class="btn btn-primary">Buscar</a>
+          </div>
+        </div>
       </div>
-      <div class="col"></div>
-    </div>
+      <div class="col-2"></div>
+    </section>
     <ServiciosVue />
     <FooterVue />
   </div>
@@ -27,31 +33,32 @@ export default {
     return {
       people: [],
       isLoading: true,
-      currentPage :1,
+      currentPage: 1,
     };
   },
   components: {
     ServiciosVue,
   },
   methods: {
-
-    updatePage(){
+    goTo: function (ruta) {
+      this.$router.push({ name: ruta });
+    },
+    updatePage() {
       setTimeout(this.listPage, 100);
     },
-    listPage(p){
+    listPage(p) {
       this.isLoading = true;
-      this.$axios.get("/api/person?page=" + this.currentPage ).then((res) => {
-      this.people = res.data;
-      this.isLoading = false;
-    });
-    }
+      this.$axios.get("/api/person?page=" + this.currentPage).then((res) => {
+        this.people = res.data;
+        this.isLoading = false;
+      });
+    },
   },
   async mounted() {
-    this.listPage()
+    this.listPage();
   },
 };
 </script>
-
 
 <style scoped>
 .presentacion {
@@ -78,5 +85,14 @@ export default {
 
 .fondo-texto {
   background-color: rgba(0, 0, 0, 0.3);
+}
+
+.container-img {
+  text-align: center;
+}
+
+.img-uam {
+  height: 70%;
+  width: 60%;
 }
 </style>

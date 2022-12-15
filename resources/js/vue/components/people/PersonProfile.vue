@@ -1,6 +1,6 @@
 <template>
-  <div class="container-fluid row m-0 p-0">
-    <div class="col-8 p-0">
+  <div class="container">
+    <div class="col-12 p-0">
       <section class="section-image container-people">
         <div class="row" v-if="person.image">
           <div class="col"></div>
@@ -73,99 +73,7 @@
         </div>
       </section>
     </div>
-    <div class="col-4"></div>
   </div>
-  <!-- <div class="container person-container">
-  {{workCategories}}
-    <div class="row">
-      <div class="col-8">
-        <div class="head">
-          <div v-if="person.image">
-            <img
-              border="3"
-              :src="`http://127.0.0.1:5173/public/image/people/` + person.image"
-              class="card-img-top img-fluid img-card mb-3 mt-5"
-              alt="Espacios + Personas UAM"
-            />
-          </div>
-          <div v-if="person.image == null">
-            <img
-              border="3"
-              src="https://cdn.pixabay.com/photo/2022/08/09/19/27/people-7375689_960_720.png"
-              class="card-img-top img-fluid img-card mb-3 mt-5"
-              alt="Espacios + Personas UAM"
-            />
-          </div>
-
-          <div v-if="person.image">
-            <img
-              border="3"
-              :src="`http://127.0.0.1:5173/public/image/people/` + person.image"
-              class="card-img-top img-fluid img-card mb-3 mt-5"
-              alt="Espacios + Personas UAM"
-            />
-          </div>
-          <div class=" card" v-if="person.image == null">
-            <img
-              border="3"
-              src="https://cdn.pixabay.com/photo/2022/08/09/19/27/people-7375689_960_720.png"
-              class="card-img-top img-fluid img-card mb-3 mt-5"
-              alt="Espacios + Personas UAM"
-            />
-          </div>
-
-          <h3 class="fw-bold" style="">
-            {{ person.firstname }} {{ person.secondname }} {{ person.lastname }}
-            {{ person.secondLastname }}
-          </h3>
-        </div>
-        <div class="body row" style="height: 400px">
-          <div class="col pt-5">
-            <div class="card shadow-lg">
-              <div class="card-body" style="text-align: center">
-                <h4 class="fw-bold">Información básica</h4>
-                <p class="m-0 p-0">email: {{ person.public_email }}</p>
-                <p class="m-0 p-0">cumpleaños: {{ person.birthday }}</p>
-              </div>
-            </div>
-          </div>
-          <div class="col pt-5" v-if="hasPersoncategories">
-            <div class="card shadow-lg bg-body rounded">
-              <div class="card-body" style="text-align: center">
-                <h4 class="fw-bold">Información personal:</h4>
-                <div v-for="category in personCategories" :key="category.id">
-                  <p class="m-0 p-0">
-                    {{ category.name }} : {{ category.value }}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col pt-5" v-if="hasWorkcategories">
-            <div class="card shadow-lg">
-              <div class="card-body" style="text-align: center">
-                <h4 class="fw-bold">Información laboral:</h4>
-                <div v-for="category in workCategories" :key="category.id">
-                  <p class="m-0 p-0">
-                    {{ category.name }} : {{ category.value }}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <pre>
-          Tiene categorias personales ? {{ hasPersoncategories }}
-          Tiene categorías laborales ? {{ hasWorkcategories }}
-          Categoría laboral {{ workcategories }}
-        </pre>
-      </div>
-    </div>
-  </div> -->
 </template>
 
 <script>

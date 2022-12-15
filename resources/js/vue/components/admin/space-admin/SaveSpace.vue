@@ -41,7 +41,7 @@
               :variant="errors.latitude ? 'danger' : 'primary'"
               :message="errors.latitude"
             >
-              <o-input type="number" v-model="form.latitude" value=""> </o-input>
+              <o-input type="text" v-model="form.latitude" value=""> </o-input>
             </o-field>
             <o-field
               
@@ -49,7 +49,7 @@
               :variant="errors.longitude ? 'danger' : 'primary'"
               :message="errors.longitude"
             >
-              <o-input type="number" v-model="form.longitude" value=""> </o-input>
+              <o-input type="text" v-model="form.longitude" value=""> </o-input>
             </o-field>
             <o-button class="mt-2" variant="primary" native-type="submit">{{
               labelSubmit

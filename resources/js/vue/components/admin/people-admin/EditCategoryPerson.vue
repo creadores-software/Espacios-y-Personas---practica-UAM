@@ -1,91 +1,5 @@
 <template>
-  <!-- <div class="container person-container">
-    <div class="row pt-4">
-      <div class="col-4">
-        <div class="head">
-          <div class="row">
-            <div class="col"></div>
-            <div class="col">
-              <h3 class="fw-bold pt-4">
-                {{ person.firstname }} {{ person.secondname }}
-              </h3>
-              <div>
-                <o-collapse :open="false" aria-id="contentIdForA11y1">
-                  <template #trigger>
-                    <o-button
-                      variant="info"
-                      aria-controls="contentIdForA11y1"
-                      outlined
-                    >
-                      Añadir categoría personal
-                    </o-button>
-                  </template>
-                  <div class="notification">
-                    <h3>Categoría personal</h3>
-                    <div class="row">
-                      <div class="col-auto">
-                        <o-field>
-                          <o-switch v-model="active">Rh</o-switch>
-                        </o-field>
-                      </div>
-                      <div v-if="active" class="col">
-                        <pre>{{ personCategoriesForm.rh }}</pre>
-                      </div>
-                    </div>
-                  </div>
-                </o-collapse>
-              </div>
-              <div>
-                <o-button variant="success">
-                  Añadir categoría laboral
-                </o-button>
-              </div>
-
-              <div class="col"></div>
-            </div>
-          </div>
-        </div>
-        <div class="body row" style="height: 400px">
-          <div class="col pt-5" v-if="this.hasPersoncategories">
-            <div class="card shadow-lg bg-body rounded">
-              <div class="card-body" style="text-align: center">
-                <h4 class="fw-bold">Información personal:</h4>
-                <div v-for="category in personCategories" :key="category.id">
-                  <p class="m-0 p-0">
-                    {{ category.name }} : {{ category.value }}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col pt-5" v-if="this.hasWorkcategories">
-            <div class="card shadow-lg">
-              <div class="card-body" style="text-align: center">
-                <h4 class="fw-bold">Información laboral:</h4>
-                <div v-for="category in workCategories" :key="category.id">
-                  <p class="m-0 p-0">
-                    {{ category.name }} : {{ category.value }}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-       <pre>
-          {{ hasPersoncategories }}
-          {{ hasWorkcategories }}
-          {{ workcategories }}
-        </pre> 
-      </div>
-    </div>
-  </div> -->
   <div class="content">
-  
-  {{workCategoriesForm}}
     <section class="row">
       <div class="col-2"></div>
       <div class="col row pt-4">
@@ -95,7 +9,7 @@
           {{ person.secondname }}
         </p>
         <div class="col-7">
-          <h5 @click="cat_personal = !cat_personal">Categoría Personal</h5>
+          <h5 class="categoria" @click="cat_personal = !cat_personal">Categoría Personal</h5>
           <div v-if="cat_personal">
             <form @submit.prevent="submit">
               <div class="row">
@@ -160,7 +74,7 @@
           </div>
         </div>
         <div class="col-5">
-          <h5 @click="cat_laboral = !cat_laboral">Categoría Laboral</h5>
+          <h5 class="categoria" @click="cat_laboral = !cat_laboral">Categoría Laboral</h5>
           <div v-if="cat_laboral">
             <form @submit.prevent="submit">
               <div class="row">
@@ -199,63 +113,6 @@
             </form>
           </div>
         </div>
-        <!-- 
-        
-        
-         -->
-
-        <!-- <h5 @click="cat_personal = !cat_personal">Categoría Personal</h5>
-        <div class="row" v-if="cat_personal">
-          <div class="col"></div>
-        </div>
-
-        <h5 @click="cat_laboral = !cat_laboral">Categoría Laboral</h5>
-        <div class="row" v-if="cat_laboral">
-          <div class="col">
-            <form @submit.prevent="submit">
-              <div class="row">
-                <div class="col-auto">Empresa</div>
-                <div class="col">
-                  <o-field>
-                    <o-select
-                      v-model="workCategoriesForm.empresa"
-                      placeholder="Rh"
-                      rounded
-                      size="sm"
-                    >
-                      <option value="UAM">UAM</option>
-                    </o-select>
-                  </o-field>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-auto pe-0">Latitud</div>
-                <div class="col-2 ps-1">
-                  <o-field>
-                    <o-input
-                      v-model="workCategoriesForm.latitud"
-                      type="number"
-                    ></o-input>
-                  </o-field>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-auto pe-0">Longitud</div>
-                <div class="col-2 ps-1">
-                  <o-field>
-                    <o-input
-                      v-model="workCategoriesForm.longitud"
-                      type="number"
-                    ></o-input>
-                  </o-field>
-                </div>
-              </div>
-              <o-button @click="saveWorkCategories">
-                {{ lbuttonWorkCategory }}
-              </o-button>
-            </form>
-          </div>
-        </div> -->
       </div>
     </section>
   </div>
@@ -295,11 +152,6 @@ export default {
     this.$route.params.slug;
     console.log(this.$route.params.slug);
     this.getPerson();
-    $.ajaxSetup({
-      headers: {
-        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-      },
-    });
     this.consultarEspacios();
   },
   methods: {
@@ -568,5 +420,9 @@ export default {
 
 .size-icon {
   font-size: 0.75em;
+}
+
+.categoria{
+  cursor:pointer;
 }
 </style>

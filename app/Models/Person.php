@@ -76,7 +76,7 @@ class Person extends Model implements Searchable
      
          return new \Spatie\Searchable\SearchResult(
             $this,
-            $this->firstname . $this->secondname . $this->lastname . $this->secondLastname ,
+            $this->firstname . " " . $this->secondname . " " . $this->lastname . " " . $this->secondLastname ,
            //$url
          );
      }

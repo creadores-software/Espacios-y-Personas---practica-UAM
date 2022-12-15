@@ -9,7 +9,7 @@ class SpaceReserves extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['date','title','space_id'];
+    protected $fillable = ['date','title','space_id','description','reserve'];
 
     public function space()
     {

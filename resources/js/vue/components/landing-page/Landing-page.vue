@@ -35,7 +35,7 @@
           <li class="nav-item">
             <a class="nav-link" v-on:click="goTo('Login')" href="#">Ingresar</a>
           </li>
-          <li class="nav-item" v-if="isAdmin">
+          <li class="nav-item">
             <a class="nav-link" v-on:click="goTo('Admin')" href="#">Admin</a>
           </li>
           <li class="nav-item">

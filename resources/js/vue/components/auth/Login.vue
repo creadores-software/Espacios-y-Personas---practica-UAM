@@ -41,7 +41,7 @@ export default {
   data: () => ({
     user: {},
     form: {
-      email: "ernser.kory@example.org",
+      email: "admin@hotmail.com",
       password: "password",
     },
     errors: {
